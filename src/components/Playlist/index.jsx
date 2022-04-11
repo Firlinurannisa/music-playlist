@@ -6,13 +6,14 @@ import Item from './Item'
 const UserPlaylist = () => {
     const { axios, token } = useStoreApi()
     const [playlists,setPlaylists] = useState([])
+    let [currToken, setToken] = useState();
 
     useEffect(() => {
         const fetchPlaylistData = async () => {
             try {
                 const response = await axios.get('/me/playlists')
                 if (response) {
-                    console.log(token)
+                    setToken(token)
                     setPlaylists(response?.data?.items)
                 }
             } catch (error) {
@@ -33,7 +34,6 @@ const UserPlaylist = () => {
                         </div>
                     }
                 </div>
-                {token}
                 <div>
                     {
                         playlists.map((item,idx) => {
